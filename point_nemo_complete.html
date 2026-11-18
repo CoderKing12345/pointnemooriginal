@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Explore Point Nemo, the oceanic pole of inaccessibility in the South Pacific Ocean.">
+<title>Point Nemo Explorer | Rijul Bimali</title>
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{--bg:#061525;--panel:#0c2238;--panel2:#102d47;--text:#edf7ff;--muted:#b6c9d9;--cyan:#54d8e8;--blue:#1686c9;--line:#24445e}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.65}
+a{color:var(--cyan)}.wrap{width:min(1120px,92%);margin:auto}.nav{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:18px 0}.brand{font-weight:800;letter-spacing:2px}.nav a{font-size:.92rem;text-decoration:none;margin-left:15px;color:var(--muted)}.hero{padding:72px 0 55px;background:radial-gradient(ellipse at 75% 25%,#155276 0%,#0b2943 35%,#061525 75%);border-bottom:1px solid var(--line)}
+.eyebrow{color:var(--cyan);font-weight:700;letter-spacing:3px;text-transform:uppercase;font-size:.78rem}.hero h1{font-size:clamp(3rem,10vw,6.5rem);line-height:.98;margin:14px 0 20px;letter-spacing:-3px}.hero p{max-width:720px;color:var(--muted);font-size:1.12rem}.coords{display:inline-block;margin-top:12px;padding:10px 15px;border:1px solid #39708e;border-radius:12px;background:#0b2948;font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}.stat,.card{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:20px}.stat strong{display:block;font-size:1.6rem;color:var(--cyan)}.stat span{color:var(--muted);font-size:.9rem}
+section{padding:52px 0}.section-title{font-size:clamp(1.7rem,4vw,2.4rem);margin:0 0 8px}.lead{color:var(--muted);max-width:780px;margin-top:0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.card h3{margin:0 0 8px;color:var(--cyan)}.card p{margin:0;color:var(--muted)}.wide{grid-column:1/-1}
+#map{height:420px;border-radius:18px;border:1px solid var(--line);z-index:1}.map-note{font-size:.86rem;color:var(--muted);margin-top:10px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.fact{padding:18px;border-radius:15px;background:var(--panel2);border:1px solid var(--line)}.fact b{display:block;font-size:1.4rem;color:var(--cyan)}
+.timeline{border-left:2px solid #287b9e;padding-left:22px}.timeline article{margin:0 0 22px}.timeline h3{margin:0;color:var(--cyan)}.timeline p{margin:4px 0;color:var(--muted)}
+.quiz{background:linear-gradient(135deg,#0d2a43,#102f4b);border:1px solid #2b5874;border-radius:18px;padding:22px}.quiz button{display:block;width:100%;text-align:left;margin:9px 0;padding:12px 14px;background:#071b2c;color:var(--text);border:1px solid #31546b;border-radius:10px;font-size:1rem;cursor:pointer}.quiz button:hover{border-color:var(--cyan)}#feedback{font-weight:700;margin-top:12px}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted)}footer strong{color:var(--text)}.small{font-size:.88rem;color:var(--muted)}
+@media(max-width:700px){.nav{align-items:flex-start;flex-direction:column}.nav a{margin:0 12px 0 0}.stats,.facts,.grid{grid-template-columns:1fr}.wide{grid-column:auto}.hero{padding-top:48px}#map{height:340px}}
+</style>
+</head>
+<body>
+<header class="hero">
+ <div class="wrap">
+  <nav class="nav"><div class="brand">OCEAN ATLAS</div><div><a href="#about">About</a><a href="#map-section">Map</a><a href="#facts">Facts</a><a href="#quiz">Quiz</a></div></nav>
+  <div class="eyebrow">Explore the most remote ocean location</div>
+  <h1>POINT<br>NEMO</h1>
+  <p>Far from coastlines and busy shipping routes, Point Nemo is the oceanic pole of inaccessibility — the point in the ocean that is farthest from any land.</p>
+  <div class="coords">48°52.6′S · 123°23.6′W</div>
+  <div class="stats">
+   <div class="stat"><strong>≈ 2,688 km</strong><span>Approximate distance to the nearest land</span></div>
+   <div class="stat"><strong>South Pacific</strong><span>Ocean where Point Nemo is located</span></div>
+   <div class="stat"><strong>1992</strong><span>Year its location was calculated</span></div>
+  </div>
+ </div>
+</header>
+<main class="wrap">
+<section id="about">
+ <h2 class="section-title">What is Point Nemo?</h2>
+ <p class="lead">Point Nemo is not an island or a marker floating in the sea. It is a calculated geographic location in the South Pacific Ocean, chosen because it is farther from land than any other point in the world's oceans. It is also called the oceanic pole of inaccessibility.</p>
+ <div class="grid">
+  <article class="card"><h3>Where is it?</h3><p>It lies in the South Pacific Ocean, between South America and New Zealand, at approximately 48°52.6′ south latitude and 123°23.6′ west longitude.</p></article>
+  <article class="card"><h3>Why is it so remote?</h3><p>The nearest land is thousands of kilometres away. The three closest land areas are small and remote, rather than large, populated places.</p></article>
+  <article class="card"><h3>Where does the name come from?</h3><p>The name “Nemo” refers to Captain Nemo, the fictional submarine captain in Jules Verne's novels. In Latin, “nemo” means “no one”.</p></article>
+  <article class="card"><h3>Is there a physical point?</h3><p>No special island, pole, or permanent marker identifies it. The point is a coordinate calculated from the positions of surrounding land.</p></article>
+ </div>
+</section>
+<section id="map-section">
+ <h2 class="section-title">Find Point Nemo on the map</h2>
+ <p class="lead">The marker shows the approximate coordinates in the open-source map below. Zoom out to see how far the location is from surrounding continents and islands.</p>
+ <div id="map" role="application" aria-label="Map showing the approximate location of Point Nemo"></div>
+ <p class="map-note">Map tiles © OpenStreetMap contributors. The marker is an approximate coordinate, not a physical structure.</p>
+</section>
+<section id="facts">
+ <h2 class="section-title">Important facts</h2>
+ <div class="facts">
+  <div class="fact"><b>2,688 km</b><span>Approximate distance from Point Nemo to the nearest land.</span></div>
+  <div class="fact"><b>3 land areas</b><span>Ducie Island, Motu Nui (near Easter Island), and Maher Island are the nearest land areas commonly identified.</span></div>
+  <div class="fact"><b>South Pacific</b><span>It is located in the South Pacific Ocean, far from major population centres.</span></div>
+ </div>
+ <p class="small">Distances are approximate and can vary slightly depending on the exact coastline points and measurements used.</p>
+</section>
+<section>
+ <h2 class="section-title">The nearest land</h2>
+ <div class="grid">
+  <article class="card"><h3>Ducie Island</h3><p>A small, uninhabited coral atoll in the Pitcairn Islands group, lying to the north of Point Nemo.</p></article>
+  <article class="card"><h3>Motu Nui</h3><p>A small islet near Rapa Nui (Easter Island), lying to the northeast of Point Nemo.</p></article>
+  <article class="card wide"><h3>Maher Island</h3><p>A small island near the coast of Antarctica, lying to the south of Point Nemo. These three locations are each roughly 2,688 kilometres from the oceanic pole of inaccessibility.</p></article>
+ </div>
+</section>
+<section>
+ <h2 class="section-title">Why do people talk about Point Nemo?</h2>
+ <div class="grid">
+  <article class="card"><h3>Spacecraft re-entry region</h3><p>Because it is extremely remote, a broad region of the South Pacific around Point Nemo has been used as a target area for controlled re-entry of some retired spacecraft and satellites. It is often nicknamed the “spacecraft cemetery”.</p></article>
+  <article class="card"><h3>Very little nearby human activity</h3><p>There are few people and relatively little regular ship traffic in this remote part of the ocean. At times, astronauts aboard the International Space Station can be among the closest humans to the area.</p></article>
+  <article class="card"><h3>Ocean life</h3><p>Point Nemo is in the open ocean. The surrounding waters are part of a vast marine ecosystem, even though the area is far from land and nutrient supply can be limited.</p></article>
+  <article class="card"><h3>Not a place to visit casually</h3><p>There is no airport, settlement, tourist facility, or public landmark at Point Nemo. Reaching the area would require a long ocean voyage.</p></article>
+ </div>
+</section>
+<section>
+ <h2 class="section-title">A short history</h2>
+ <div class="timeline">
+  <article><h3>1992 — Location calculated</h3><p>Croatian-Canadian survey engineer Hrvoje Lukatela used geographic calculations and computer modelling to identify the oceanic pole of inaccessibility.</p></article>
+  <article><h3>After its identification — Name becomes popular</h3><p>The location became widely known as Point Nemo, using the name of Captain Nemo from Jules Verne's fiction.</p></article>
+  <article><h3>Today — A geographic reference</h3><p>Point Nemo is known in geography, ocean science, and discussions about controlled spacecraft re-entries into remote ocean areas.</p></article>
+ </div>
+</section>
+<section>
+ <h2 class="section-title">Quick facts to remember</h2>
+ <div class="card">
+  <ul>
+   <li>Point Nemo is in the South Pacific Ocean.</li>
+   <li>It is the oceanic pole of inaccessibility.</li>
+   <li>Its approximate coordinates are 48°52.6′S, 123°23.6′W.</li>
+   <li>It is about 2,688 km from the nearest land.</li>
+   <li>It was calculated in 1992 by Hrvoje Lukatela.</li>
+   <li>Its name refers to Captain Nemo from Jules Verne's novels.</li>
+   <li>The surrounding remote ocean region is sometimes called the spacecraft cemetery.</li>
+  </ul>
+ </div>
+</section>
+<section id="quiz">
+ <h2 class="section-title">Test your knowledge</h2>
+ <div class="quiz">
+  <p><strong>1. In which ocean is Point Nemo located?</strong></p>
+  <button onclick="answer(this,false)">Atlantic Ocean</button>
+  <button onclick="answer(this,true)">South Pacific Ocean</button>
+  <button onclick="answer(this,false)">Indian Ocean</button>
+  <p id="feedback" aria-live="polite"></p>
+  <button onclick="resetQuiz()" style="display:inline-block;width:auto">Try again</button>
+ </div>
+</section>
+<section>
+ <h2 class="section-title">Sources and further reading</h2>
+ <div class="card">
+  <p>For more information, explore these educational references:</p>
+  <ul>
+   <li><a href="https://oceanservice.noaa.gov/" target="_blank" rel="noopener">NOAA Ocean Service</a> — ocean and geography information.</li>
+   <li><a href="https://www.britannica.com/" target="_blank" rel="noopener">Encyclopaedia Britannica</a> — general reference articles.</li>
+   <li><a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a> — interactive geographic map data.</li>
+  </ul>
+  <p class="small">This page is an educational overview. Measurements are approximate; scientific and geographic references should be consulted for detailed research.</p>
+ </div>
+</section>
+</main>
+<footer><div class="wrap">
+ <p><strong>Publisher:</strong> Rijul Bimali</p>
+ <p><strong>Contact:</strong> <a href="mailto:bimalirijul@gmail.com">bimalirijul@gmail.com</a></p>
+ <p class="small">Point Nemo Explorer · Educational project · © 2026 Rijul Bimali</p>
+</div></footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const point=[-48.8767,-123.3933];
+const map=L.map('map').setView(point,3);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:10,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+L.marker(point).addTo(map).bindPopup('<b>Point Nemo</b><br>48°52.6′S, 123°23.6′W').openPopup();
+L.circle(point,{radius:50000,color:'#54d8e8',fillOpacity:.08}).addTo(map);
+function answer(btn,correct){document.querySelectorAll('.quiz button').forEach(b=>{if(b.textContent!=='Try again')b.disabled=true});const f=document.getElementById('feedback');f.textContent=correct?'Correct! Point Nemo is in the South Pacific Ocean.':'Not quite. The correct answer is the South Pacific Ocean.';f.style.color=correct?'#71e6b1':'#ffd18a'}
+function resetQuiz(){document.querySelectorAll('.quiz button').forEach(b=>b.disabled=false);document.getElementById('feedback').textContent=''}
+</script>
+</body>
+</html>
